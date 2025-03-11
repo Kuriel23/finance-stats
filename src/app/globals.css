@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+&:where(.dark, .dark *) {
+	--lord-icon-primary: #cad5e2;
+}
