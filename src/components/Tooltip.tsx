@@ -52,22 +52,24 @@ const TooltipTrigger = React.forwardRef<
 	const triggerRef = React.useRef<SVGGElement | null>(null);
 
 	React.useEffect(() => {
-		const handleClickOutside = (event: MouseEvent | TouchEvent) => {
-			if (
-				triggerRef.current &&
-				!triggerRef.current.contains(event.target as Node)
-			) {
-				context.setTooltip(undefined);
-			}
-		};
+		if (typeof document !== "undefined") {
+			const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+				if (
+					triggerRef.current &&
+					!triggerRef.current.contains(event.target as Node)
+				) {
+					context.setTooltip(undefined);
+				}
+			};
 
-		document.addEventListener("mousedown", handleClickOutside);
-		document.addEventListener("touchstart", handleClickOutside);
+			document.addEventListener("mousedown", handleClickOutside);
+			document.addEventListener("touchstart", handleClickOutside);
 
-		return () => {
-			document.removeEventListener("mousedown", handleClickOutside);
-			document.removeEventListener("touchstart", handleClickOutside);
-		};
+			return () => {
+				document.removeEventListener("mousedown", handleClickOutside);
+				document.removeEventListener("touchstart", handleClickOutside);
+			};
+		}
 	}, [context]);
 
 	return (
