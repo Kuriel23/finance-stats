@@ -121,9 +121,12 @@ const TooltipContent = React.forwardRef<
 	HTMLDivElement,
 	{ children: React.ReactNode }
 >((props, forwardedRef) => {
-	const { children } = props;
 	const context = useTooltipContext(CONTENT_NAME);
 	const runningOnClient = typeof document !== "undefined";
+	if (!context.tooltip || !runningOnClient) {
+		return null;
+	}
+	const { children } = props;
 	const tooltipRef = React.useRef<HTMLDivElement>(null);
 
 	// Calculate position based on viewport
@@ -145,31 +148,27 @@ const TooltipContent = React.forwardRef<
 
 	const isMobile = window.innerWidth < 768;
 
-	return !context.tooltip || !runningOnClient ? (
-		<></>
-	) : (
-		createPortal(
-			isMobile ? (
-				<div
-					className="fixed h-fit z-60 w-fit rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-3"
-					style={{
-						top: context.tooltip.y,
-						left: context.tooltip.x + 20,
-					}}
-				>
-					{children}
-				</div>
-			) : (
-				<div
-					ref={tooltipRef}
-					className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-black dark:text-white px-3.5 py-2 rounded-sm fixed z-50"
-					style={getTooltipPosition()}
-				>
-					{children}
-				</div>
-			),
-			document.body,
-		)
+	return createPortal(
+		isMobile ? (
+			<div
+				className="fixed h-fit z-60 w-fit rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-3"
+				style={{
+					top: context.tooltip.y,
+					left: context.tooltip.x + 20,
+				}}
+			>
+				{children}
+			</div>
+		) : (
+			<div
+				ref={tooltipRef}
+				className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-black dark:text-white px-3.5 py-2 rounded-sm fixed z-50"
+				style={getTooltipPosition()}
+			>
+				{children}
+			</div>
+		),
+		document.body,
 	);
 });
 
