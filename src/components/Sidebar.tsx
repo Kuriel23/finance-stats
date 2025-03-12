@@ -20,11 +20,11 @@ export default function Sidebar() {
 	const usersRef = useRef<Player>(null);
 	const { setTheme } = useTheme();
 	return (
-		<nav className="flex flex-col items-center justify-between w-30 h-screen bg-slate-300 dark:bg-slate-700 rounded-r-xl font-bold">
-			<div>
+		<nav className="flex md:flex-col sticky top-0 z-50 items-center justify-between w-screen h-30 md:w-30 md:h-screen bg-slate-300 dark:bg-slate-700 max-md:rounded-b-xl md:rounded-r-xl font-bold p-2">
+			<div className="max-md:flex max-md:w-full max-md:justify-between max-md:mr-3">
 				<Link
 					href={"#"}
-					className="bg-slate-100 dark:bg-slate-900 rounded-xl w-25 flex flex-col items-center justify-center p-2 m-2 aspect-square"
+					className="bg-slate-100 dark:bg-slate-900 rounded-xl flex flex-col items-center justify-center aspect-square p-1 md:p-2 m-2 md:m-2 w-full md:w-25"
 					onMouseEnter={() => homeRef.current?.playFromBeginning()}
 				>
 					<Player ref={homeRef} icon={home} />
@@ -32,7 +32,7 @@ export default function Sidebar() {
 				</Link>
 				<Link
 					href={"#"}
-					className="bg-slate-200 dark:bg-slate-900 rounded-xl w-25 flex flex-col items-center justify-center p-2 m-2 aspect-square"
+					className="bg-slate-200 dark:bg-slate-900 rounded-xl flex flex-col items-center justify-center aspect-square p-1 md:p-2 m-2 md:m-2 w-full md:w-25"
 					onMouseEnter={() => growthRef.current?.playFromBeginning()}
 				>
 					<Player ref={growthRef} icon={growth} />
@@ -40,7 +40,7 @@ export default function Sidebar() {
 				</Link>
 				<Link
 					href={"#"}
-					className="bg-slate-200 dark:bg-slate-900 rounded-xl w-25 flex flex-col items-center justify-center p-2 m-2 aspect-square"
+					className="bg-slate-200 dark:bg-slate-900 rounded-xl flex flex-col items-center justify-center aspect-square p-1 md:p-2 m-2 md:m-2 w-full md:w-25"
 					onMouseEnter={() => reportsRef.current?.playFromBeginning()}
 				>
 					<Player ref={reportsRef} icon={reports} />
@@ -48,7 +48,7 @@ export default function Sidebar() {
 				</Link>
 				<Link
 					href={"#"}
-					className="bg-slate-200 dark:bg-slate-900 rounded-xl w-25 flex flex-col items-center justify-center p-2 m-2 aspect-square"
+					className="bg-slate-200 dark:bg-slate-900 rounded-xl flex flex-col items-center justify-center aspect-square p-1 md:p-2 m-2 md:m-2 w-full md:w-25"
 					onMouseEnter={() => usersRef.current?.playFromBeginning()}
 				>
 					<Player ref={usersRef} icon={users} />

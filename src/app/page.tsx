@@ -40,38 +40,27 @@ export default function Home() {
 	}, []);
 	return (
 		<div className="w-full p-5">
-			<div className="flex justify-between">
+			<div className="flex justify-between items-center">
 				<h1 className="text-slate-500 dark:text-slate-300 text-2xl">
 					Hello, <b>Ellie Armstrong</b>.
 				</h1>
-				<div className="flex gap-3">
-					<p className="text-slate-500 dark:text-slate-300 text-2xl">
-						Made by{" "}
-						<a
-							href="https://kurieldev.vercel.app"
-							target="_blank"
-							className="text-red-500 font-bold"
-							rel="noreferrer"
-						>
-							KurielDev
-						</a>
-						.
-					</p>
-					<div className="bg-slate-300 dark:bg-slate-700 cursor-pointer rounded-xl aspect-square h-10 p-1.5">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 256 256"
-							role="img"
-							aria-label="logout"
-							className="fill-slate-500 dark:fill-slate-300"
-						>
-							<path d="M120,216a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H56V208h56A8,8,0,0,1,120,216Zm109.66-93.66-40-40a8,8,0,0,0-11.32,11.32L204.69,120H112a8,8,0,0,0,0,16h92.69l-26.35,26.34a8,8,0,0,0,11.32,11.32l40-40A8,8,0,0,0,229.66,122.34Z" />
-						</svg>
-					</div>
+				<div className="bg-slate-300 dark:bg-slate-700 cursor-pointer rounded-xl aspect-square h-10 p-1.5">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 256 256"
+						role="img"
+						aria-label="logout"
+						className="fill-slate-500 dark:fill-slate-300"
+					>
+						<path d="M120,216a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V40a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H56V208h56A8,8,0,0,1,120,216Zm109.66-93.66-40-40a8,8,0,0,0-11.32,11.32L204.69,120H112a8,8,0,0,0,0,16h92.69l-26.35,26.34a8,8,0,0,0,11.32,11.32l40-40A8,8,0,0,0,229.66,122.34Z" />
+					</svg>
 				</div>
 			</div>
-			<div className="grid grid-cols-6 my-3 gap-5" ref={containerRef}>
-				<div data-swapy-slot="outgoing" className="col-span-2">
+			<div
+				className="grid md:grid-cols-2 xl:grid-cols-6 my-3 md:gap-5 gap-y-5"
+				ref={containerRef}
+			>
+				<div data-swapy-slot="outgoing" className="xl:col-span-2">
 					<div
 						className="bg-slate-300 dark:bg-slate-700 rounded-xl p-3 grid grid-cols-1 w-full h-full"
 						data-swapy-item="outgoing"
@@ -82,7 +71,7 @@ export default function Home() {
 						<DonutChartCenterText />
 					</div>
 				</div>
-				<div data-swapy-slot="sales" className="col-span-2">
+				<div data-swapy-slot="sales" className="xl:col-span-2">
 					<div
 						className="bg-slate-300 dark:bg-slate-700 rounded-xl p-3 grid grid-cols-1 w-full h-full"
 						data-swapy-item="sales"
@@ -93,7 +82,7 @@ export default function Home() {
 						<LineChartPulse />
 					</div>
 				</div>
-				<div data-swapy-slot="cat" className="col-span-2">
+				<div data-swapy-slot="cat" className="md:col-span-2">
 					<div
 						className="bg-slate-300 dark:bg-slate-700 rounded-xl p-3 grid grid-cols-1 w-full h-full"
 						data-swapy-item="cat"
@@ -104,7 +93,7 @@ export default function Home() {
 						<PieChart />
 					</div>
 				</div>
-				<div data-swapy-slot="where" className="col-span-3">
+				<div data-swapy-slot="where" className="md:col-span-2 xl:col-span-3">
 					<div
 						className="bg-slate-300 dark:bg-slate-700 rounded-xl p-3 grid grid-cols-1 w-full h-full"
 						data-swapy-item="where"
@@ -115,7 +104,7 @@ export default function Home() {
 						<BarChartVertical />
 					</div>
 				</div>
-				<div data-swapy-slot="why" className="col-span-3">
+				<div data-swapy-slot="why" className="md:col-span-2 xl:col-span-3">
 					<div
 						className="bg-slate-300 dark:bg-slate-700 rounded-xl p-3 grid grid-cols-1 w-full h-full"
 						data-swapy-item="why"
@@ -126,6 +115,23 @@ export default function Home() {
 						<RadarChart />
 					</div>
 				</div>
+			</div>
+			<div className="flex flex-col justify-center">
+				<p className="text-slate-500 dark:text-slate-300 text-2xl text-center">
+					You can drag-and-drop all the charts!
+				</p>
+				<p className="text-slate-500 dark:text-slate-300 text-2xl text-center">
+					Made by{" "}
+					<a
+						href="https://kurieldev.vercel.app"
+						target="_blank"
+						className="text-red-500 font-bold"
+						rel="noreferrer"
+					>
+						KurielDev
+					</a>
+					.
+				</p>
 			</div>
 		</div>
 	);
