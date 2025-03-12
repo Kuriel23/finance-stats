@@ -123,11 +123,16 @@ const TooltipContent = React.forwardRef<
 >((props, forwardedRef) => {
 	const context = useTooltipContext(CONTENT_NAME);
 	const runningOnClient = typeof document !== "undefined";
+	const [body, setBody] = React.useState<Element>();
 	if (!context.tooltip || !runningOnClient) {
 		return null;
 	}
 	const { children } = props;
 	const tooltipRef = React.useRef<HTMLDivElement>(null);
+
+	React.useEffect(() => {
+		setBody(document.body);
+	}, []);
 
 	// Calculate position based on viewport
 	const getTooltipPosition = () => {
@@ -168,7 +173,7 @@ const TooltipContent = React.forwardRef<
 				{children}
 			</div>
 		),
-		document.body,
+		body as Element,
 	);
 });
 
