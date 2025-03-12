@@ -52,24 +52,22 @@ const TooltipTrigger = React.forwardRef<
 	const triggerRef = React.useRef<SVGGElement | null>(null);
 
 	React.useEffect(() => {
-		if (typeof document !== "undefined") {
-			const handleClickOutside = (event: MouseEvent | TouchEvent) => {
-				if (
-					triggerRef.current &&
-					!triggerRef.current.contains(event.target as Node)
-				) {
-					context.setTooltip(undefined);
-				}
-			};
+		const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+			if (
+				triggerRef.current &&
+				!triggerRef.current.contains(event.target as Node)
+			) {
+				context.setTooltip(undefined);
+			}
+		};
 
-			document.addEventListener("mousedown", handleClickOutside);
-			document.addEventListener("touchstart", handleClickOutside);
+		document.addEventListener("mousedown", handleClickOutside);
+		document.addEventListener("touchstart", handleClickOutside);
 
-			return () => {
-				document.removeEventListener("mousedown", handleClickOutside);
-				document.removeEventListener("touchstart", handleClickOutside);
-			};
-		}
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+			document.removeEventListener("touchstart", handleClickOutside);
+		};
 	}, [context]);
 
 	return (
@@ -145,33 +143,33 @@ const TooltipContent = React.forwardRef<
 		};
 	};
 
-	if (!context.tooltip || !runningOnClient) {
-		return null;
-	}
-
 	const isMobile = window.innerWidth < 768;
 
-	return createPortal(
-		isMobile ? (
-			<div
-				className="fixed h-fit z-60 w-fit rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-3"
-				style={{
-					top: context.tooltip.y,
-					left: context.tooltip.x + 20,
-				}}
-			>
-				{children}
-			</div>
-		) : (
-			<div
-				ref={tooltipRef}
-				className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-black dark:text-white px-3.5 py-2 rounded-sm fixed z-50"
-				style={getTooltipPosition()}
-			>
-				{children}
-			</div>
-		),
-		document.body,
+	return !context.tooltip || !runningOnClient ? (
+		<></>
+	) : (
+		createPortal(
+			isMobile ? (
+				<div
+					className="fixed h-fit z-60 w-fit rounded-lg bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-3"
+					style={{
+						top: context.tooltip.y,
+						left: context.tooltip.x + 20,
+					}}
+				>
+					{children}
+				</div>
+			) : (
+				<div
+					ref={tooltipRef}
+					className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-black dark:text-white px-3.5 py-2 rounded-sm fixed z-50"
+					style={getTooltipPosition()}
+				>
+					{children}
+				</div>
+			),
+			document.body,
+		)
 	);
 });
 
