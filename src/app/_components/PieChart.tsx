@@ -1,10 +1,11 @@
 import React from "react";
 import { pie, arc, type PieArcDatum } from "d3";
 import {
-	ClientTooltip,
+	Tooltip,
 	TooltipContent,
+	TooltipProvider,
 	TooltipTrigger,
-} from "@/components/Tooltip";
+} from "@/components/ui/tooltip";
 
 type DataItem = {
 	name: string;
@@ -107,25 +108,20 @@ export function PieChart() {
 					})}
 
 					{arcs.map((d: PieArcDatum<DataItem>, i) => (
-						// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-						<ClientTooltip key={i}>
-							<TooltipTrigger>
-								<path
-									// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-									key={i}
-									fill={"currentColor"}
-									// biome-ignore lint/style/noNonNullAssertion: <explanation>
-									d={arcGenerator(d)!}
-									className={`${d.data.color}`}
-								/>
-							</TooltipTrigger>
-							<TooltipContent>
-								<div>{d.data.name}</div>
-								<div className="text-gray-500 dark:text-gray-300 text-sm">
-									{d.data.value.toLocaleString("en-US")}
-								</div>
-							</TooltipContent>
-						</ClientTooltip>
+						<path
+							// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+							key={i}
+							fill={"currentColor"}
+							// biome-ignore lint/style/noNonNullAssertion: <explanation>
+							d={arcGenerator(d)!}
+							className={`${d.data.color}`}
+						>
+							<title>
+								{d.data.name}
+								{"\n"}
+								{d.data.value.toLocaleString("en-US").toString()}
+							</title>
+						</path>
 					))}
 				</svg>
 

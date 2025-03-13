@@ -6,11 +6,6 @@ import {
 	line as d3_line,
 	curveNatural as d3_curveNatural,
 } from "d3";
-import {
-	ClientTooltip,
-	TooltipContent,
-	TooltipTrigger,
-} from "@/components/Tooltip";
 const sales = [
 	{ date: "2022-04-30", value: 27.2 },
 	{ date: "2023-04-30", value: 16.8 },
@@ -158,60 +153,51 @@ export function LineChartPulse() {
 					{/* Circles and Tooltips */}
 					{data.map((d, index) => (
 						// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-						<ClientTooltip key={index}>
-							<TooltipTrigger>
-								<g className="group/tooltip">
-									{/* Tooltip Line */}
-									<line
-										x1={xScale(d.date)}
-										y1={0}
-										x2={xScale(d.date)}
-										y2={100}
-										stroke="currentColor"
-										strokeWidth={1}
-										className="opacity-0 group-hover/tooltip:opacity-100 text-zinc-700 dark:text-zinc-300 transition-opacity"
-										vectorEffect="non-scaling-stroke"
-										style={{ pointerEvents: "none" }}
-									/>
-									{/* Invisible area closest to a specific point for the tooltip trigger */}
-									<rect
-										x={(() => {
-											const prevX =
-												index > 0
-													? xScale(data[index - 1].date)
-													: xScale(d.date);
-											return (prevX + xScale(d.date)) / 2;
-										})()}
-										y={0}
-										width={(() => {
-											const prevX =
-												index > 0
-													? xScale(data[index - 1].date)
-													: xScale(d.date);
-											const nextX =
-												index < data.length - 1
-													? xScale(data[index + 1].date)
-													: xScale(d.date);
-											const leftBound = (prevX + xScale(d.date)) / 2;
-											const rightBound = (xScale(d.date) + nextX) / 2;
-											return rightBound - leftBound;
-										})()}
-										height={100}
-										fill="transparent"
-									/>
-								</g>
-							</TooltipTrigger>
-							<TooltipContent>
-								<div>
-									{d.date.toLocaleDateString("en-US", {
+						<g className="group/tooltip" key={index}>
+							{/* Tooltip Line */}
+							<title>
+								{d.date
+									.toLocaleDateString("en-US", {
 										year: "numeric",
-									})}
-								</div>
-								<div className="dark:text-gray-300 text-gray-700 text-sm">
-									{d.value.toLocaleString("en-US")}
-								</div>
-							</TooltipContent>
-						</ClientTooltip>
+									})
+									.toString()}
+								{"\n"}
+								{d.value.toLocaleString("en-US").toString()}
+							</title>
+							<line
+								x1={xScale(d.date)}
+								y1={0}
+								x2={xScale(d.date)}
+								y2={100}
+								stroke="currentColor"
+								strokeWidth={1}
+								className="opacity-0 group-hover/tooltip:opacity-100 text-zinc-700 dark:text-zinc-300 transition-opacity"
+								vectorEffect="non-scaling-stroke"
+								style={{ pointerEvents: "none" }}
+							/>
+							{/* Invisible area closest to a specific point for the tooltip trigger */}
+							<rect
+								x={(() => {
+									const prevX =
+										index > 0 ? xScale(data[index - 1].date) : xScale(d.date);
+									return (prevX + xScale(d.date)) / 2;
+								})()}
+								y={0}
+								width={(() => {
+									const prevX =
+										index > 0 ? xScale(data[index - 1].date) : xScale(d.date);
+									const nextX =
+										index < data.length - 1
+											? xScale(data[index + 1].date)
+											: xScale(d.date);
+									const leftBound = (prevX + xScale(d.date)) / 2;
+									const rightBound = (xScale(d.date) + nextX) / 2;
+									return rightBound - leftBound;
+								})()}
+								height={100}
+								fill="transparent"
+							/>
+						</g>
 					))}
 				</svg>
 
